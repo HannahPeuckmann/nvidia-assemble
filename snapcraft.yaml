@@ -5,13 +5,13 @@ license: GPL-3.0
 summary: assemble and load Nvidia drivers
 description: assemble and load Nvidia drivers
 confinement: strict
-base: core22
+base: core24
 assumes:
   - snapd2.59
 
-architectures:
-  - build-on: amd64
-  - build-on: arm64
+platforms:
+  amd64:
+  arm64:
 
 apps:
   nvidia-assemble:
@@ -28,6 +28,14 @@ plugs:
         options: modeset=1
       - name: nvidia-uvm
         load: dynamic
+  kernel-module-access:
+    interface: system-files
+    read:
+      - /snap/pc-kernel
+  proc-devices-access:
+    interface: system-files
+    read:
+      - /proc/devices
 
 parts:
 
